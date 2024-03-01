@@ -1,6 +1,7 @@
 package com.nutriasoft.todo.Entity;
 
-// import com.nutriasoft.todo.Interfaces.ITodo;
+import java.util.UUID;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,9 +21,9 @@ import lombok.NoArgsConstructor;
 public class Todo {
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    @Column(name = "uuid")
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID uuid;
 
     @Column(name = "name")
     private String name;
@@ -30,9 +31,4 @@ public class Todo {
     @Column(name = "is_complete")
     protected boolean isComplete;
 
-
-    // public Todo(String _name, boolean _isComplete) {
-    // this.setName(_name);
-    // this.setIsComplete(_isComplete);
-    // }
 }
