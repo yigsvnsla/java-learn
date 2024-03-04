@@ -28,6 +28,7 @@ public class TodoController {
     @GetMapping({ "", "/" })
     public ResponseEntity<ResponseDto<List<Todo>>> GetAllTodo(
             @ModelAttribute QueryParamsDto<Todo> queryParamsDto) {
+        System.out.println(queryParamsDto);
         return TodoService.GetAllTodo(queryParamsDto);
     }
 

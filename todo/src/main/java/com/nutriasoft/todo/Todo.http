@@ -3,11 +3,26 @@
 GET http://localhost:8080/todo
 
 ###
+# Get All Todos
+GET http://localhost:8080/todo?order=name&order=uuid
+
+
+###
+GET http://localhost:8080/todo?order=name&order=uuid&orderDirection=ASC
+
+
+
+###
+# Get All Todos params
+GET http://localhost:8080/todo?page=3&take=10
+
+###
 # Get one Todo
 GET http://localhost:8080/todo/9d296425-22e8-4ad5-9e48-e5d6b788086
 
 
 ###
+# Create New Task
 POST http://localhost:8080/todo HTTP/1.1
 content-type: application/json
 
@@ -25,3 +40,6 @@ content-type: application/json
         "name": "creando mi tarea"
     }
 ]
+
+
+#

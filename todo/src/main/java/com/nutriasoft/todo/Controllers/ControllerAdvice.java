@@ -14,6 +14,10 @@ import com.nutriasoft.todo.execptions.ResponseExecption;
 @RestControllerAdvice
 public class ControllerAdvice {
 
+    // Crear un objeto de respuesta con el mensaje de error y el código de estado
+    private ResponseDto<?> responseDto = new ResponseDto<>();
+    private MetadataResponseDto metadataResponseDto = new MetadataResponseDto();
+
     /**
      * Maneja las excepciones de tipo ResponseExecption y genera una respuesta
      * adecuada.
@@ -28,15 +32,11 @@ public class ControllerAdvice {
 
         HttpStatus status = (ex.getStatus() != null) ? ex.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
 
-        // Crear un objeto de respuesta con el mensaje de error y el código de estado
-        ResponseDto<?> responseDto = new ResponseDto<>();
-        MetadataResponseDto metadataResponseDto = new MetadataResponseDto();
+        this.metadataResponseDto.setStatus(ex.getStatus());
+        this.metadataResponseDto.setMessage(ex.getMessage()); // Establecer el mensaje de error en el cuerpo de la respuesta
 
-        metadataResponseDto.setStatus(ex.getStatus());
-        metadataResponseDto.setMessage(ex.getMessage()); // Establecer el mensaje de error en el cuerpo de la respuesta
-        
-        responseDto.setMeta(metadataResponseDto); // Establecer metadatos si es necesario
-        responseDto.setData(null); // Establecer datos según sea necesario
+        this.responseDto.setMeta(metadataResponseDto); // Establecer metadatos si es necesario
+        this.responseDto.setData(null); // Establecer datos según sea necesario
 
         // Crear un objeto ResponseEntity con el cuerpo de la respuesta y el código de
         // estado
@@ -44,16 +44,30 @@ public class ControllerAdvice {
     }
 
     @ExceptionHandler(value = NoSuchElementException.class)
+    // IllegalArgumentException - if id is null.
     public ResponseEntity<ResponseDto<?>> handlerNoSuchElementException(NoSuchElementException ex) {
-        ResponseDto<?> responseDto = new ResponseDto<>();
-        MetadataResponseDto metadataResponseDto = new MetadataResponseDto();
 
-        metadataResponseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-        metadataResponseDto.setMessage(ex.getMessage());
+        this.metadataResponseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        this.metadataResponseDto.setMessage(ex.getMessage());
 
-        responseDto.setMeta(metadataResponseDto);
-        responseDto.setData(null);
+        this.responseDto.setMeta(metadataResponseDto);
+        this.responseDto.setData(null);
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDto);
     }
+
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public ResponseEntity<ResponseDto<?>> handlerIllegalArgumentException(IllegalArgumentException ex) {
+        // IllegalArgumentException-in case the given entities or one of its entities is
+        // null.
+
+        this.metadataResponseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        this.metadataResponseDto.setMessage(ex.getMessage());
+
+        this.responseDto.setMeta(metadataResponseDto);
+        this.responseDto.setData(null);
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDto);
+    }
+
 }
