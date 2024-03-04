@@ -1,16 +1,14 @@
 package com.nutriasoft.todo.Dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 public class ResponseDto<T> {
 
-    @Getter
-    @Setter
     private MetadataResponseDto meta = null;
 
-    @Getter
-    @Setter
     private T data;
 
     public ResponseDto(T _data, MetadataResponseDto _metaDataResponse) {

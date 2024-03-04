@@ -37,10 +37,11 @@
 				"usernamehw.errorlens",
 				"lijialin.IDEA-Icons-To-Maven-For-VSCode",
 				"aaron-bond.better-comments",
-				"cweijan.dbclient-jdbc"
+				"cweijan.dbclient-jdbc",
+				"cweijan.vscode-postgresql-client2"
 			]
 		}
-	},
+	}
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "java -version"
 	// Configure tool-specific properties.

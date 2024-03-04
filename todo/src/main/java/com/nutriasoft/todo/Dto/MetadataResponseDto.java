@@ -13,7 +13,6 @@ public class MetadataResponseDto {
 
     private String message;
 
-
     private PageDto pagination = null;
 
     public MetadataResponseDto(String _message, HttpStatus _status,  PageDto _pagination) {

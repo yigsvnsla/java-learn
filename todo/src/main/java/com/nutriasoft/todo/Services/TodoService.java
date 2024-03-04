@@ -14,6 +14,7 @@ import com.nutriasoft.todo.Dto.QueryParamsDto;
 import com.nutriasoft.todo.Dto.ResponseDto;
 import com.nutriasoft.todo.Entity.Todo;
 import com.nutriasoft.todo.Repository.TodoRepository;
+import com.nutriasoft.todo.execptions.ResponseExecption;
 
 @Service
 public class TodoService {
@@ -41,30 +42,22 @@ public class TodoService {
     }
 
     public ResponseEntity<ResponseDto<Todo>> GetTodoById(UUID _id) {
-        try {
-            if (_id == null) {
-                throw new Error("Arg '_id' is null");
-            }
-            Boolean todoExit = this.todoRepository.existsById(_id);
-            if (!todoExit) {
-                throw new Error("Todo not exist");
-            }
-
-            Todo todo = this.todoRepository.findById(_id).orElseThrow();
-            MetadataResponseDto metadataResponseDto = new MetadataResponseDto();
-            metadataResponseDto.setMessage("Find todo success");
-            metadataResponseDto.setStatus(HttpStatus.OK);
-            ResponseDto<Todo> responseDto = new ResponseDto<Todo>(todo, metadataResponseDto);
-            return new ResponseEntity<>(responseDto, HttpStatus.OK);
-
-        } catch (Exception e) {
-            MetadataResponseDto metadataResponseDto = new MetadataResponseDto();
-            metadataResponseDto.setMessage("find todo list error");
-            metadataResponseDto.setStatus(HttpStatus.NOT_FOUND);
-            ResponseDto<Todo> responseDto = new ResponseDto<>(null, metadataResponseDto);
-            return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
+        if (_id == null) {
+            throw new ResponseExecption(HttpStatus.BAD_REQUEST, "Arg '_id' is null");
         }
 
+        Boolean todoExit = this.todoRepository.existsById(_id);
+
+        if (!todoExit) {
+            throw new ResponseExecption(HttpStatus.NOT_FOUND, "Todo not exist");
+        }
+
+        Todo todo = this.todoRepository.findById(_id).orElseThrow();
+        MetadataResponseDto metadataResponseDto = new MetadataResponseDto();
+        metadataResponseDto.setMessage("Find todo success");
+        metadataResponseDto.setStatus(HttpStatus.OK);
+        ResponseDto<Todo> responseDto = new ResponseDto<Todo>(todo, metadataResponseDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
     public ResponseEntity<ResponseDto<List<Todo>>> SetAllTodo(List<Todo> _todos) {
@@ -79,11 +72,11 @@ public class TodoService {
             }
 
             List<Todo> listTodo = (List<Todo>) this.todoRepository.saveAll(_todos);
-            PageDto pageDto = new PageDto(listTodo.size());
             MetadataResponseDto metadataResponseDto = new MetadataResponseDto();
+            
             metadataResponseDto.setMessage("create todo success");
             metadataResponseDto.setStatus(HttpStatus.OK);
-            metadataResponseDto.setPagination(pageDto);
+            
             ResponseDto<List<Todo>> responseDto = new ResponseDto<>(listTodo, metadataResponseDto);
 
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
