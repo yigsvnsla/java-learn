@@ -1,4 +1,4 @@
-package com.nutriasoft.todo.Controllers;
+package com.nutriasoft.todo.controller;
 
 import java.util.NoSuchElementException;
 
@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.nutriasoft.todo.Dto.MetadataResponseDto;
-import com.nutriasoft.todo.Dto.ResponseDto;
+import com.nutriasoft.todo.dto.MetadataResponseDto;
+import com.nutriasoft.todo.dto.ResponseDto;
 import com.nutriasoft.todo.execptions.ResponseExecption;
 
 @RestControllerAdvice
@@ -26,7 +26,6 @@ public class ControllerAdvice {
      * @return Una respuesta ResponseEntity con el cuerpo de la respuesta y el
      *         código de estado adecuados.
      */
-    @SuppressWarnings("null")
     @ExceptionHandler(value = ResponseExecption.class)
     public ResponseEntity<ResponseDto<?>> handlerResponseExecption(ResponseExecption ex) {
 

@@ -1,6 +1,6 @@
 ###
 # Get All Todos
-GET http://localhost:8080/todo
+GET http://localhost:8080/api/todo
 
 ###
 # Get All Todos
@@ -8,8 +8,11 @@ GET http://localhost:8080/todo?order=name&order=uuid
 
 
 ###
-GET http://localhost:8080/todo?order=name&order=uuid&orderDirection=ASC
+GET http://localhost:8080/todo?order=name&order=id&orderDirection=ASC
 
+
+###
+GET http://localhost:8080/todo?orderDirection=ASC
 
 
 ###
@@ -40,6 +43,3 @@ content-type: application/json
         "name": "creando mi tarea"
     }
 ]
-
-
-#

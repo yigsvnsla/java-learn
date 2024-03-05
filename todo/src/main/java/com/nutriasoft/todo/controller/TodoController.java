@@ -1,4 +1,4 @@
-package com.nutriasoft.todo.Controllers;
+package com.nutriasoft.todo.controller;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nutriasoft.todo.Dto.QueryParamsDto;
-import com.nutriasoft.todo.Dto.ResponseDto;
-import com.nutriasoft.todo.Entity.Todo;
-import com.nutriasoft.todo.Services.TodoService;
+import com.nutriasoft.todo.dto.QueryParamsDto;
+import com.nutriasoft.todo.dto.ResponseDto;
+import com.nutriasoft.todo.entity.Todo;
+import com.nutriasoft.todo.service.TodoService;
 
 @RestController
 @RequestMapping("/todo")

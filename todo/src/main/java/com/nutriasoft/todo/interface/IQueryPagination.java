@@ -1,4 +1,4 @@
-package com.nutriasoft.todo.Interfaces;
+package com.nutriasoft.todo.interface;
 
 public interface IQueryPagination {
 

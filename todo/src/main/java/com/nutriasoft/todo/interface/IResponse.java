@@ -1,6 +1,6 @@
-package com.nutriasoft.todo.Interfaces;
+package com.nutriasoft.todo.interface;
 
-import com.nutriasoft.todo.Dto.MetadataResponseDto;
+import com.nutriasoft.todo.dto.MetadataResponseDto;
 
 public interface IResponse<T> {
 

@@ -1,4 +1,4 @@
-package com.nutriasoft.todo.Services;
+package com.nutriasoft.todo.service;
 
 import java.util.List;
 import java.util.UUID;
@@ -11,12 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.nutriasoft.todo.Dto.MetadataResponseDto;
-import com.nutriasoft.todo.Dto.PageDto;
-import com.nutriasoft.todo.Dto.QueryParamsDto;
-import com.nutriasoft.todo.Dto.ResponseDto;
-import com.nutriasoft.todo.Entity.Todo;
-import com.nutriasoft.todo.Repository.TodoRepository;
+import com.nutriasoft.todo.dto.MetadataResponseDto;
+import com.nutriasoft.todo.dto.PageDto;
+import com.nutriasoft.todo.dto.QueryParamsDto;
+import com.nutriasoft.todo.dto.ResponseDto;
+import com.nutriasoft.todo.entity.Todo;
+import com.nutriasoft.todo.repository.TodoRepository;
 import com.nutriasoft.todo.execptions.ResponseExecption;
 
 @Service
@@ -30,15 +30,11 @@ public class TodoService {
         PageDto pageDto = new PageDto();
         ResponseDto<List<Todo>> responseDto = new ResponseDto<>();
         MetadataResponseDto metadataResponseDto = new MetadataResponseDto();
-        System.out.println(queryParamsDto.toString());
 
-        Sort sort;
-
-        var s = queryParamsDto.getOrderDirection();
-        var x = queryParamsDto.getOrder();
-        sort = Sort.by(s, x);
-
-        PageRequest pageable = PageRequest.of(queryParamsDto.getPage(), queryParamsDto.getTake(), sort);
+        PageRequest pageable = PageRequest.of(
+                queryParamsDto.getPage(),
+                queryParamsDto.getTake(),
+                Sort.by(queryParamsDto.getOrderDirection(), queryParamsDto.getOrder()));
 
         Page<Todo> pageTodo = this.todoRepository.findAll(pageable);
 

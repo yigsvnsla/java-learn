@@ -1,4 +1,4 @@
-package com.nutriasoft.todo.Dto;
+package com.nutriasoft.todo.dto;
 
 import org.springframework.http.HttpStatus;
 
