@@ -34,17 +34,11 @@ public class TodoService {
 
         Sort sort;
 
-        if (queryParamsDto.getOrder().length > 0) {
-            sort = Sort.by(Sort.DEFAULT_DIRECTION);
-        } else {
-            sort = Sort.by(
-                    queryParamsDto.getOrderDirection(),
-                    queryParamsDto.getOrder());
-        }
+        var s = queryParamsDto.getOrderDirection();
+        var x = queryParamsDto.getOrder();
+        sort = Sort.by(s, x);
 
-        PageRequest pageable = PageRequest.of(
-                queryParamsDto.getPage(),
-                queryParamsDto.getTake(), sort);
+        PageRequest pageable = PageRequest.of(queryParamsDto.getPage(), queryParamsDto.getTake(), sort);
 
         Page<Todo> pageTodo = this.todoRepository.findAll(pageable);
 
