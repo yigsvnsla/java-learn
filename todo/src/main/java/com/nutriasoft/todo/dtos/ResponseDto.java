@@ -1,4 +1,4 @@
-package com.nutriasoft.todo.dto;
+package com.nutriasoft.todo.dtos;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

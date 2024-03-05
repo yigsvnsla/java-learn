@@ -1,4 +1,4 @@
-package com.nutriasoft.todo.interface;
+package com.nutriasoft.todo.interfaces;
 
 public interface IQueryParams {
     String order = "";

@@ -11,13 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.nutriasoft.todo.dto.MetadataResponseDto;
-import com.nutriasoft.todo.dto.PageDto;
-import com.nutriasoft.todo.dto.QueryParamsDto;
-import com.nutriasoft.todo.dto.ResponseDto;
-import com.nutriasoft.todo.entity.Todo;
-import com.nutriasoft.todo.repository.TodoRepository;
+import com.nutriasoft.todo.dtos.MetadataResponseDto;
+import com.nutriasoft.todo.dtos.PageDto;
+import com.nutriasoft.todo.dtos.QueryParamsDto;
+import com.nutriasoft.todo.dtos.ResponseDto;
+import com.nutriasoft.todo.entitys.Todo;
 import com.nutriasoft.todo.execptions.ResponseExecption;
+import com.nutriasoft.todo.repositories.TodoRepository;
 
 @Service
 public class TodoService {

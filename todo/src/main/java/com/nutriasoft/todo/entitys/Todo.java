@@ -1,4 +1,4 @@
-package com.nutriasoft.todo.entity;
+package com.nutriasoft.todo.entitys;
 
 import java.util.UUID;
 

@@ -1,4 +1,4 @@
-package com.nutriasoft.todo.controller;
+package com.nutriasoft.todo.controllers;
 
 import java.util.NoSuchElementException;
 
@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.nutriasoft.todo.dto.MetadataResponseDto;
-import com.nutriasoft.todo.dto.ResponseDto;
+import com.nutriasoft.todo.dtos.MetadataResponseDto;
+import com.nutriasoft.todo.dtos.ResponseDto;
 import com.nutriasoft.todo.execptions.ResponseExecption;
 
 @RestControllerAdvice

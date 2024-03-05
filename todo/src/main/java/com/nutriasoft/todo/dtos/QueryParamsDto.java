@@ -1,4 +1,4 @@
-package com.nutriasoft.todo.dto;
+package com.nutriasoft.todo.dtos;
 
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.lang.NonNull;
