@@ -18,8 +18,13 @@ import com.nutriasoft.todo.dtos.QueryParamsDto;
 import com.nutriasoft.todo.dtos.ResponseDto;
 import com.nutriasoft.todo.entitys.Todo;
 import com.nutriasoft.todo.service.TodoService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.web.bind.annotation.PutMapping;
 
+
+@Tag(name = "Todo")
 @RestController
 @RequestMapping("/todo")
 public class TodoController {
