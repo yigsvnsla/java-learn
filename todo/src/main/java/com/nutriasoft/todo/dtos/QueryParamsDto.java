@@ -16,4 +16,7 @@ public class QueryParamsDto<T> {
     @NonNull
     private String[] order = { "id" };
 
+    public void setPage(Integer _page) {
+        this.page = _page == 0 ? this.page : _page;
+    }
 }

@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,30 +18,39 @@ import com.nutriasoft.todo.dtos.QueryParamsDto;
 import com.nutriasoft.todo.dtos.ResponseDto;
 import com.nutriasoft.todo.entitys.Todo;
 import com.nutriasoft.todo.service.TodoService;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/todo")
 public class TodoController {
 
     @Autowired
-    TodoService TodoService;
+    TodoService todoService;
 
-    @GetMapping({ "", "/" })
-    public ResponseEntity<ResponseDto<List<Todo>>> GetAllTodo(
+    @GetMapping("")
+    public ResponseEntity<ResponseDto<List<Todo>>> getAllTodo(
             @ModelAttribute QueryParamsDto<Todo> queryParamsDto) {
-        System.out.println(queryParamsDto);
-        return TodoService.GetAllTodo(queryParamsDto);
+        return todoService.GetAllTodo(queryParamsDto);
     }
 
     @GetMapping("/{_id}")
-    public ResponseEntity<ResponseDto<Todo>> GetTodo(
+    public ResponseEntity<ResponseDto<Todo>> getTodo(
             @PathVariable UUID _id) {
-        return TodoService.GetTodoById(_id);
+        return todoService.GetTodoById(_id);
     }
 
-    @PostMapping({ "", "/" })
-    public ResponseEntity<ResponseDto<List<Todo>>> SetAllTodo(@RequestBody List<Todo> _todos) {
-        return TodoService.SetAllTodo(_todos);
+    @PostMapping("")
+    public ResponseEntity<ResponseDto<List<Todo>>> getAllTodo(@RequestBody List<Todo> _todos) {
+        return todoService.SetAllTodo(_todos);
     }
 
+    @PutMapping("/{_id}")
+    public ResponseEntity<ResponseDto<Todo>> putTodo(@PathVariable UUID _id, @RequestBody Todo _todo) {
+        return todoService.PutTodo(_id, _todo);
+    }
+
+    @DeleteMapping("/{_id}")
+    public ResponseEntity<ResponseDto<Todo>> delTodo(@PathVariable UUID _id) {
+        return todoService.DeleteTodo(_id);
+    }
 }
