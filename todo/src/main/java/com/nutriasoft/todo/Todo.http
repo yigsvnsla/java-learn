@@ -3,43 +3,43 @@
 GET http://localhost:8080/api/todo
 
 ###
-# Get All Todos
-GET http://localhost:8080/todo?order=name&order=uuid
+# Get all todo with params
+GET http://localhost:8080/api/todo?order=name&order=id
 
 
 ###
-GET http://localhost:8080/todo?order=name&order=id&orderDirection=ASC
+GET http://localhost:8080/api/todo?order=name&order=id&orderDirection=ASC
 
 
 ###
-GET http://localhost:8080/todo?orderDirection=ASC
+GET http://localhost:8080/api/todo?orderDirection=ASC
 
 
 ###
 # Get All Todos params
-GET http://localhost:8080/todo?page=3&take=10
+GET http://localhost:8080/api/todo?page=3&take=10
 
 ###
 # Get one Todo
-GET http://localhost:8080/todo/9d296425-22e8-4ad5-9e48-e5d6b788086
+GET http://localhost:8080/api/todo/9d296425-22e8-4ad5-9e48-e5d6b788086
 
 
 ###
 # Create New Task
-POST http://localhost:8080/todo HTTP/1.1
+POST http://localhost:8080/api/todo HTTP/1.1
 content-type: application/json
 
 [
     {
-        "name": "creando mi tarea"
+        "name": "creando mi tarea 1"
     },
     {
-        "name": "creando mi tarea"
+        "name": "creando mi tarea 2"
     },
     {
-        "name": "creando mi tarea"
+        "name": "creando mi tarea 3"
     },
     {
-        "name": "creando mi tarea"
+        "name": "creando mi tarea 4"
     }
 ]

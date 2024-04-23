@@ -3,42 +3,78 @@ version: '3.8'
 volumes:
   postgres-data:
 
+
+x-logging: &logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:${KC_VERSION}
+    command: [ "start-dev", "--import-realm" ]
+    restart: unless-stopped
+    environment:
+      KC_DB: postgres
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+      KC_DB_URL: "jdbc:postgresql://postgres:5432/keycloak"
+      KC_METRICS_ENABLED: true
+      KC_LOG_LEVEL: ${KC_LOG_LEVEL}
+      KC_REALM_NAME: ${KC_REALM_NAME}
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      # GF_URL: ${GF_HOSTNAME}:${GF_SERVER_HTTP_PORT}
+      # GF_ADMIN_USERNAME: ${GF_ADMIN_USERNAME}
+      # GF_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD}
+    ports:
+      - ${KC_PORT}:8080
+    volumes:
+      - ./keycloak/realm.json:/opt/keycloak/data/import/realm.json:ro
+    logging: *logging
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
   app:
     container_name: java_devcontainer
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     environment:
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_DB: ${PG_DB}
+      POSTGRES_HOSTNAME: ${PG_HOSTNAME}
       # NOTE: POSTGRES_DB/USER/PASSWORD should match values in db container
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_USER: postgres
-        POSTGRES_DB: postgres
-        POSTGRES_HOSTNAME: postgresdb
 
     volumes:
       - ../..:/workspaces:cached
-      
+
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
 
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
-    network_mode: service:db
+    network_mode: service:postgres
 
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
     # (Adding the "ports" property to this file will not forward from a Codespace.)
+    logging: *logging
 
-  db:
+  postgres:
     container_name: postgresdb
-    image: postgres:latest
+    image: postgres:${POSTGRES_VERSION}
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
     environment:
       # NOTE: POSTGRES_DB/USER/PASSWORD should match values in app container
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
-
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_DB: ${PG_DB}
+      POSTGRES_HOSTNAME: ${PG_HOSTNAME}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "keycloak"]
     # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)

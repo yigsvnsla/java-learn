@@ -23,7 +23,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.web.bind.annotation.PutMapping;
 
-
 @Tag(name = "Todo")
 @RestController
 @RequestMapping("/todo")
@@ -33,14 +32,12 @@ public class TodoController {
     TodoService todoService;
 
     @GetMapping("")
-    public ResponseEntity<ResponseDto<List<Todo>>> getAllTodo(
-            @ModelAttribute QueryParamsDto<Todo> queryParamsDto) {
+    public ResponseEntity<ResponseDto<List<Todo>>> getAllTodo(@ModelAttribute QueryParamsDto<Todo> queryParamsDto) {
         return todoService.GetAllTodo(queryParamsDto);
     }
 
     @GetMapping("/{_id}")
-    public ResponseEntity<ResponseDto<Todo>> getTodo(
-            @PathVariable UUID _id) {
+    public ResponseEntity<ResponseDto<Todo>> getTodo(@PathVariable UUID _id) {
         return todoService.GetTodoById(_id);
     }
 

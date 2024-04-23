@@ -38,7 +38,8 @@
 				"lijialin.IDEA-Icons-To-Maven-For-VSCode",
 				"aaron-bond.better-comments",
 				"cweijan.dbclient-jdbc",
-				"cweijan.vscode-postgresql-client2"
+				"cweijan.vscode-postgresql-client2",
+				"mikestead.dotenv"
 			]
 		}
 	}
