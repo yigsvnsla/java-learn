@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +34,9 @@ public class TodoController {
     TodoService todoService;
 
     @GetMapping("")
-    @PreAuthorize("hasrole('admin_client_role')")
-    public ResponseEntity<ResponseDto<List<Todo>>> getAllTodo(@ModelAttribute QueryParamsDto<Todo> queryParamsDto) {
+    @PreAuthorize("admin_client_role")
+    public ResponseEntity<ResponseDto<List<Todo>>> getAllTodo(@ModelAttribute QueryParamsDto<Todo> queryParamsDto,BearerTokenAuthentication authentication) {
+        System.out.println(authentication);
         return todoService.GetAllTodo(queryParamsDto);
     }
 
