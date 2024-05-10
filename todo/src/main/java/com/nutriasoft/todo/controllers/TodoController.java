@@ -34,9 +34,8 @@ public class TodoController {
     TodoService todoService;
 
     @GetMapping("")
-    @PreAuthorize("admin_client_role")
+    // @PreAuthorize("hasRole('admin_client_role')")
     public ResponseEntity<ResponseDto<List<Todo>>> getAllTodo(@ModelAttribute QueryParamsDto<Todo> queryParamsDto,BearerTokenAuthentication authentication) {
-        System.out.println(authentication);
         return todoService.GetAllTodo(queryParamsDto);
     }
 

@@ -3,6 +3,7 @@ version: "3.8"
 volumes:
   postgres-data:
 
+
 x-logging: &logging
   driver: "json-file"
   options:
@@ -13,11 +14,11 @@ services:
   keycloak:
     env_file: devcontainer.env
     image: quay.io/keycloak/keycloak:24.0.3
-    command: [ "start-dev" ]
+    command: [ "start-dev", "--import-realm" ]
     restart: unless-stopped
     ports:
-    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
-    # (Adding the "ports" property to this file will not forward from a Codespace.)
+      # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
+      # (Adding the "ports" property to this file will not forward from a Codespace.)
       - 8080:8080
     volumes:
       - ./keycloak/realm.json:/opt/keycloak/data/import/realm.json:ro
@@ -40,7 +41,7 @@ services:
     network_mode: service:postgres
 
     environment:
-      keycloak_URL : keycloak
+      keycloak_URL: keycloak
 
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
