@@ -39,7 +39,8 @@
 				"aaron-bond.better-comments",
 				"cweijan.dbclient-jdbc",
 				"cweijan.vscode-postgresql-client2",
-				"mikestead.dotenv"
+				"mikestead.dotenv",
+				"Postman.postman-for-vscode"
 			]
 		}
 	}
